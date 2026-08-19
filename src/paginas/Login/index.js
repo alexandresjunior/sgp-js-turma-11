@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import logo from '../../imagens/sgp_logo_vertical.png';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [marcado, setMarcado] = useState(true);
     const [erro, setErro] = useState("");
+
+    const navigate = useNavigate();
 
     const executarLogin = (e) => {
         e.preventDefault();
@@ -18,6 +21,8 @@ function Login() {
 
         console.log({ email, senha, marcado });
         setErro("");
+
+        navigate("/usuarios");
     }
 
     return (
