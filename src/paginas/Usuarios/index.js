@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cabecalho from "../../componentes/Cabecalho";
 import Rodape from "../../componentes/Rodape";
 import { listarUsuarios } from "../../servicos/usuarios";
+import { useNavigate } from "react-router-dom";
 
 function Usuarios() {
     const [usuarios, setUsuarios] = useState([]);
@@ -10,6 +11,8 @@ function Usuarios() {
         listarUsuarios(setUsuarios);
     }, []);
 
+    const navigate = useNavigate();
+
     return (
         <>
             <Cabecalho />
@@ -17,7 +20,12 @@ function Usuarios() {
             <section id="usuarios" className="container mt-3">
                 <div className="d-flex justify-content-between">
                     <h1>Usuários Cadastrados</h1>
-                    <button className="btn btn-primary">Novo Usuário</button>
+                    <button 
+                        className="btn btn-primary" 
+                        onClick={() => navigate("/usuarios/novo")}
+                    >
+                        Novo Usuário
+                    </button>
                 </div>
 
                 <table className="table table-hover">

@@ -10,3 +10,15 @@ export async function listarUsuarios(setUsuarios) {
         console.error("Erro ao listar usuários: ", erro);
     })
 }
+
+export async function cadastrarUsuario(dadosUsuario, navigate) {
+    await api.post("/usuarios", dadosUsuario).then((resposta) => {
+        if (resposta.status === 201) {
+            alert("Usuário cadastrado com sucesso!");
+            navigate("/usuarios");
+        }
+    }).catch((erro) => {
+        alert("Erro ao cadastrar usuário.");
+        console.error("Erro ao cadastrar usuário: ", erro)
+    });
+}
