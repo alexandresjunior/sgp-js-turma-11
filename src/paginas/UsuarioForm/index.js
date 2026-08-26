@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cabecalho from "../../componentes/Cabecalho";
 import Rodape from "../../componentes/Rodape";
-import { cadastrarUsuario } from "../../servicos/usuarios";
-import { useNavigate } from "react-router-dom";
+import { atualizarUsuario, buscarUsuarioPeloId, cadastrarUsuario } from "../../servicos/usuarios";
+import { useNavigate, useParams } from "react-router-dom";
 import EntradaForm from "../../componentes/EntradaForm";
 
 function UsuarioForm() {
@@ -29,7 +29,28 @@ function UsuarioForm() {
 
         console.log(dadosUsuario);
 
-        await cadastrarUsuario(dadosUsuario, navigate);
+        if (id) {
+            await atualizarUsuario(id, dadosUsuario, navigate);
+        } else {
+            await cadastrarUsuario(dadosUsuario, navigate);
+        }
+    }
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            buscarUsuarioPeloId(id,
+                setNome, setCpf,
+                setEmail, setSenha,
+                setDataNascimento, setStatus);
+        }
+    }, []);
+
+    const cancelar = (e) => {
+        e.preventDefault();
+
+        navigate("/usuarios");
     }
 
     return (
@@ -40,7 +61,7 @@ function UsuarioForm() {
                 <h1>Dados do Usuário</h1>
 
                 <form className="row g-3" onSubmit={enviarFormulario}>
-                    <EntradaForm 
+                    <EntradaForm
                         htmlFor="nome"
                         label="Nome"
                         placeholder="Digite seu nome completo"
@@ -49,7 +70,7 @@ function UsuarioForm() {
                         required={true}
                     />
 
-                    <EntradaForm 
+                    <EntradaForm
                         htmlFor="cpf"
                         label="CPF"
                         state={cpf}
@@ -57,7 +78,7 @@ function UsuarioForm() {
                         required={true}
                     />
 
-                    <EntradaForm 
+                    <EntradaForm
                         htmlFor="email"
                         label="E-mail"
                         type="email"
@@ -66,7 +87,7 @@ function UsuarioForm() {
                         required={true}
                     />
 
-                    <EntradaForm 
+                    <EntradaForm
                         htmlFor="senha"
                         label="Senha"
                         type="password"
@@ -75,7 +96,7 @@ function UsuarioForm() {
                         required={true}
                     />
 
-                    <EntradaForm 
+                    <EntradaForm
                         htmlFor="data-nascimento"
                         label="Data de Nascimento"
                         type="date"
@@ -86,7 +107,7 @@ function UsuarioForm() {
 
                     <div className="col-md-6 col-12">
                         <label className="form-label" htmlFor="status">Status</label>
-                        <select 
+                        <select
                             id="status"
                             className="form-select"
                             value={status}
@@ -101,9 +122,9 @@ function UsuarioForm() {
 
                     <div className="col-12">
                         <button type="submit" className="btn btn-primary">Salvar</button>
-                        <button 
-                            className="btn btn-outline-primary ms-2" 
-                            onClick={() => navigate("/usuarios")}
+                        <button
+                            className="btn btn-outline-primary ms-2"
+                            onClick={cancelar}
                         >
                             Cancelar
                         </button>

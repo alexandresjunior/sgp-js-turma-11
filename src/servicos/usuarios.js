@@ -58,3 +58,14 @@ export async function buscarUsuarioPeloId(
         console.error("Erro ao buscar usuário: ", erro);
     });
 }
+
+export async function excluirUsuarioPeloId(idUsuario, setExibirModal) {
+    await api.delete(`/usuarios/${idUsuario}`).then((resposta) => {
+        if (resposta.status === 200) {
+            setExibirModal(false);
+        }
+    }).catch((erro) => {
+        alert("Erro ao excluir usuário.");
+        console.error("Erro ao excluir usuário: ", erro);
+    });
+}

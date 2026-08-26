@@ -1,17 +1,37 @@
 import { useEffect, useState } from "react";
 import Cabecalho from "../../componentes/Cabecalho";
 import Rodape from "../../componentes/Rodape";
-import { listarUsuarios } from "../../servicos/usuarios";
+import { excluirUsuarioPeloId, listarUsuarios } from "../../servicos/usuarios";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../componentes/Modal";
 
 function Usuarios() {
     const [usuarios, setUsuarios] = useState([]);
+    const [exibirModal, setExibirModal] = useState(false);
+    const [idUsuarioSelecionado, setIdUsuarioSelecionado] = useState();
 
     useEffect(() => {
         listarUsuarios(setUsuarios);
     }, []);
 
     const navigate = useNavigate();
+
+    const confirmarExclusao = (id) => {
+        setExibirModal(true);
+        setIdUsuarioSelecionado(id);
+    }
+
+    const cancelarExclusao = () => {
+        setExibirModal(false);
+        setIdUsuarioSelecionado();
+    }
+
+    const excluirUsuario = async () => {
+        await excluirUsuarioPeloId(idUsuarioSelecionado, setExibirModal);
+
+        setUsuarios(usuarios.filter(usuario => usuario.id !== idUsuarioSelecionado));
+        setIdUsuarioSelecionado();
+    }
 
     return (
         <>
@@ -20,8 +40,8 @@ function Usuarios() {
             <section id="usuarios" className="container mt-3">
                 <div className="d-flex justify-content-between">
                     <h1>Usuários Cadastrados</h1>
-                    <button 
-                        className="btn btn-primary" 
+                    <button
+                        className="btn btn-primary"
                         onClick={() => navigate("/usuarios/novo")}
                     >
                         Novo Usuário
@@ -52,8 +72,18 @@ function Usuarios() {
                                     <td>{usuario.status}</td>
                                     <td>
                                         <div className="btn-group">
-                                            <button className="btn btn-outline-primary">Editar</button>
-                                            <button className="btn btn-outline-danger">Excluir</button>
+                                            <button
+                                                className="btn btn-outline-primary"
+                                                onClick={() => navigate(`/usuarios/${usuario.id}`)}
+                                            >
+                                                Editar
+                                            </button>
+                                            <button
+                                                className="btn btn-outline-danger"
+                                                onClick={() => confirmarExclusao(usuario.id)}
+                                            >
+                                                Excluir
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -62,6 +92,17 @@ function Usuarios() {
                     </tbody>
                 </table>
             </section>
+
+            {exibirModal && (
+                <Modal
+                    titulo={"Confirmação de Exclusão"}
+                    texto={"Tem certeza que deseja excluir este usuário?"}
+                    txtBtn01={"Sim, excluir."}
+                    onClickBtn01={excluirUsuario}
+                    txtBtn02={"Não, cancelar."}
+                    onClickBtn02={cancelarExclusao}
+                />
+            )}
 
             <Rodape />
         </>

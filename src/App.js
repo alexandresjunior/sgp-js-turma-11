@@ -15,6 +15,7 @@ function App() {
         <Route path="/dashboard" element={<></>} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/usuarios/novo" element={<UsuarioForm />} />
+        <Route path="/usuarios/:id" element={<UsuarioForm />} />
         <Route path="/projetos" element={<Projetos />} />
         <Route path="/tarefas" element={<Tarefas />} />
         <Route path="*" element={<Pagina404 />} />
