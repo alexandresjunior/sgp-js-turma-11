@@ -6,6 +6,7 @@ import Usuarios from './paginas/Usuarios';
 import Projetos from './paginas/Projetos';
 import Tarefas from './paginas/Tarefas';
 import UsuarioForm from './paginas/UsuarioForm';
+import ProjetoForm from './paginas/ProjetoForm';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/usuarios/novo" element={<UsuarioForm />} />
         <Route path="/usuarios/:id" element={<UsuarioForm />} />
         <Route path="/projetos" element={<Projetos />} />
+        <Route path="/projetos/novo" element={<ProjetoForm />} />
+        <Route path="/projetos/:id" element={<ProjetoForm />} />
         <Route path="/tarefas" element={<Tarefas />} />
         <Route path="*" element={<Pagina404 />} />
       </Routes>
