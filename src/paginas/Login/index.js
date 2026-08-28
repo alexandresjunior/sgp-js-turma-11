@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../imagens/sgp_logo_vertical.png';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
+import { autenticarUsuario } from '../../servicos/auth';
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const executarLogin = (e) => {
+    const executarLogin = async (e) => {
         e.preventDefault();
 
         if (email === "" || senha === "") {
@@ -19,11 +20,19 @@ function Login() {
             return;
         }
 
-        console.log({ email, senha, marcado });
-        setErro("");
+        await autenticarUsuario(email, senha, marcado, navigate);
 
-        navigate("/usuarios");
+        setErro("");
     }
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('accessToken') || localStorage.getItem('accessToken');
+
+        // TODO: validar o token
+        if (token) {
+            navigate("/usuarios");
+        }
+    }, []);
 
     return (
         <div className="bg-container">
