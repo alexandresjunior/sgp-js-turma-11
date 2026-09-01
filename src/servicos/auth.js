@@ -7,7 +7,7 @@ export async function autenticarUsuario(email, senha, marcado, navigate) {
         } else {
             sessionStorage.setItem('accessToken', resposta.data.accessToken);
         }
-        navigate("/usuarios");
+        navigate("/dashboard");
     }).catch((erro) => {
         alert('Não foi possível autenticar usuário.');
         console.error('Não foi possível autenticar usuário:', erro);

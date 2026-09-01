@@ -7,13 +7,14 @@ import Projetos from './paginas/Projetos';
 import Tarefas from './paginas/Tarefas';
 import UsuarioForm from './paginas/UsuarioForm';
 import ProjetoForm from './paginas/ProjetoForm';
+import Dashboard from './paginas/Dashboard';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route index path="/" element={<Login />} />
-        <Route path="/dashboard" element={<></>} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/usuarios/novo" element={<UsuarioForm />} />
         <Route path="/usuarios/:id" element={<UsuarioForm />} />

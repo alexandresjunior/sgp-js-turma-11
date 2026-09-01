@@ -1,6 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import logo from "../../imagens/sgp_logo_horizontal.png";
 
 function Cabecalho() {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem('accessToken');
+        sessionStorage.removeItem('accessToken');
+
+        navigate("/");
+    }
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container">
@@ -36,7 +46,10 @@ function Cabecalho() {
                         </li>
                     </ul>
 
-                    <button className="btn btn-primary">
+                    <button 
+                        className="btn btn-primary"
+                        onClick={logout}
+                    >
                         Sair
                     </button>
                 </div>

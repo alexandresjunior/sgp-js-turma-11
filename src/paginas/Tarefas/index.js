@@ -29,8 +29,7 @@ function Tarefas() {
                             <th scope="col">Data de Criação</th>
                             <th scope="col">Prioridade</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Projeto</th>
-                            <th scope="col">Usuário</th>
+                            <th scope="col">Projeto ID</th>
                             <th scope="col">Opções</th>
                         </tr>
                     </thead>
@@ -44,8 +43,7 @@ function Tarefas() {
                                     <td>{tarefa.dataCriacao}</td>
                                     <td>{tarefa.prioridade}</td>
                                     <td>{tarefa.status}</td>
-                                    <td>{tarefa.projeto.nome}</td>
-                                    <td>{tarefa.usuario.nome}</td>
+                                    <td>{tarefa.projetoId}</td>
                                     <td>
                                         <div className="btn-group">
                                             <button className="btn btn-outline-primary">Editar</button>
