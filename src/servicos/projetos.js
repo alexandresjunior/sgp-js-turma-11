@@ -10,3 +10,27 @@ export async function listarProjetos(setProjetos) {
         console.error("Erro ao listar projetos: ", erro);
     })
 }
+
+export async function cadastrarProjeto(dadosProjeto, navigate) {
+    await api.post("/projetos", dadosProjeto).then((resposta) => {
+        if (resposta.status === 201) {
+            alert("Projeto cadastrado com sucesso!");
+            navigate("/projetos");
+        }
+    }).catch((erro) => {
+        alert("Erro ao cadastrar projeto.");
+        console.error("Erro ao cadastrar projeto: ", erro);
+    });
+}
+
+export async function atualizarProjeto(idProjeto, dadosProjeto, navigate) {
+    await api.put(`/projetos/${idProjeto}`, dadosProjeto).then((resposta) => {
+        if (resposta.status === 200) {
+            alert("Projeto atualizado com sucesso!");
+            navigate("/projetos");
+        }
+    }).catch((erro) => {
+        alert("Erro ao atualizar projeto.");
+        console.error("Erro ao atualizar projeto: ", erro);
+    });
+}

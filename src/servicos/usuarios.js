@@ -61,7 +61,7 @@ export async function buscarUsuarioPeloId(
 
 export async function excluirUsuarioPeloId(idUsuario, setExibirModal) {
     await api.delete(`/usuarios/${idUsuario}`).then((resposta) => {
-        if (resposta.status === 200) {
+        if (resposta.status === 204) {
             setExibirModal(false);
         }
     }).catch((erro) => {

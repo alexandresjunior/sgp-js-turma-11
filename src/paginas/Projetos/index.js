@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { listarProjetos } from "../../servicos/projetos";
 import Cabecalho from "../../componentes/Cabecalho";
 import Rodape from "../../componentes/Rodape";
+import { useNavigate } from "react-router-dom";
 
 function Projetos() {
     const [projetos, setProjetos] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         listarProjetos(setProjetos);
@@ -17,7 +19,12 @@ function Projetos() {
             <section id="projetos" className="container mt-3">
                 <div className="d-flex justify-content-between">
                     <h1>Projetos Cadastrados</h1>
-                    <button className="btn btn-primary">Novo Projeto</button>
+                    <button 
+                        className="btn btn-primary"
+                        onClick={() => navigate("/projetos/novo")}
+                    >
+                        Novo Projeto
+                    </button>
                 </div>
 
                 <table className="table table-hover">
